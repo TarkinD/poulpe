@@ -1,0 +1,328 @@
+import random
+fichier = open("data.txt", "a")
+
+# definitions character race
+# nb : no distinction between high elf and wood elf, nor between mountain dwarf and hill dwarf
+
+races = ['Dwarf', 'Elf', 'Halfling', 'Human']
+sexes = ['Male', 'Female']
+stats = [0, 0, 0, 0, 0, 0]
+classes = ['Cleric', 'Fighter', 'Rogue', 'Wizard']
+moral = ['Good', 'Neutral', 'Evil']
+attitude = ['Lawful', 'Neutral', 'Chaotic']
+
+
+# definition of stats
+# 4 d6 and we keep the best 3
+def _stat():
+    dice_a = random.randint(1, 6)
+    dice_b = random.randint(1, 6)
+    dice_c = random.randint(1, 6)
+    dice_d = random.randint(1, 6)
+    _stat = [dice_a, dice_b, dice_c, dice_d]
+    _stat.sort()
+    del _stat[0]
+    return int(sum(_stat))
+
+
+# for each stat give a value
+
+
+for i in range(0, 6):
+    if stats[i] == 0:
+        stats[i] = _stat()
+
+print(('Strength', stats[0]),
+      ('Dexterity', stats[1]),
+      ('Constitution', stats[2]),
+      ('Intelligence', stats[3]),
+      ('Wisdom', stats[4]),
+      ('Charisma', stats[5]))
+
+# define race
+
+r = random.randint(0, 3)
+race = races[r]
+print(race)
+
+# define sex
+
+s = random.randint(0, 1)
+sex = sexes[s]
+print(sex)
+
+m = random.randint(0, 2)
+a = random.randint(0, 2)
+alignment = [attitude[a], moral[m]]
+print(alignment)
+
+# define height
+human_heigth = 56 + (random.randint(1, 10) + random.randint(1, 10))
+dwarf_heigth = 42 + (random.randint(1, 4) + random.randint(1, 4))
+elf_height = 48 + (random.randint(1, 10) + random.randint(1, 10))
+halfling_height = 31 + (random.randint(1, 4) + random.randint(1, 4))
+
+if race == "Human":
+    height = human_heigth
+elif race == "Dwarf":
+    height = dwarf_heigth
+elif race == "Elf":
+    height = elf_height
+else:
+    height = halfling_height
+
+height_m = height * 0.0254
+
+print((height // 12), " ft ", (int(height % 12)), " inches. i.e : ", round(height_m, 2), " m")
+
+# Define weight
+
+human_weight = 110 + (random.randint(1, 4) + random.randint(1, 4))
+dwarf_weight = 115 + (random.randint(1, 6) + random.randint(1, 6))
+elf_weight = 90 + random.randint(1, 4)
+halfling_weight = 35
+
+if race == "Human":
+    weight = human_weight
+elif race == "Dwarf":
+    weight = dwarf_weight
+elif race == "Elf":
+    weight = elf_weight
+else:
+    weight = halfling_weight
+
+print(weight, " lb. i.e : ", weight * 0.45, "kg")
+
+
+# Define name
+# Dwarf names
+
+dwarf_male_names = ['Adrik', 'Alberich', 'Baern', 'Barendd', 'Brottor',
+                    'Bruenor', 'Dain', 'Darrak', 'Delg', 'Eberk', 'Einkil',
+                    'Fargrim', 'Flint', 'Gardain', 'Harbek', 'Kildrak',
+                    'Morgran', 'Orsik', 'Oskar', 'Rangrim', 'Rurik',
+                    'Taklinn', 'Thoradin', 'Thorin', 'Tordek',
+                    'Traubon', 'Travok', 'Ulfgar', 'Veit', 'Vondal']
+
+dwarf_female_names = ['Amber', 'Artin', 'Audhild', 'Bardryn', 'Dagnal',
+                      'Diesa', 'Eldeth', 'Falkrunn', 'Finellen', 'Gunnloda',
+                      'Gurdis', 'Helja', 'Hlin', 'Kathra', 'Kristryd', 'Ilde',
+                      'Liftrasa', 'Mardred', 'Riswynn', 'Sannl', 'Torbera', 'Torgga', 'Vistra']
+
+dwarf_clan_names = ['Balderk', 'Battlehammer', 'Brawnanvil',
+                    'Dankil', 'Fireforge', 'Frostbeard', 'Gorunn',
+                    'Holderhek', 'Ironfist', 'Loderr', 'Lutgehr',
+                    'Rumnaheim', 'Strakeln', 'Torunn', 'Ungart']
+
+# Elf Names
+elf_male_names = ['Adran', 'Aelar', 'Aramil', 'Arannis',
+                  'Aust', 'Beiro', 'Berrian', 'Carric',
+                  'Enialis', 'Erdan', 'Erevan', 'Galinndan',
+                  'Hadarai', 'Heian', 'Himo', 'Immeral',
+                  'Ivellios', 'Laucian', 'Mindartis', 'Paelias',
+                  'Peren', 'Quarion', 'Riardon', 'Rolen',
+                  'Soveliss', 'Thamior', 'Tharivol', 'Theren', 'Varis']
+
+elf_female_names = ['Adrie', 'Althaea', 'Anastrianna', 'Andraste',
+                    'Antinua', 'Bethrynna', 'Birel', 'Caelynn', 'Drusilia',
+                    'Enna', 'Felosial', 'Ielenia', 'Jelenneth', 'Keyleth',
+                    'Leshanna', 'Lia', 'Meriele', 'Mialee', 'Naivara',
+                    'Quelenna', 'Quillathe', 'Sariel', 'Shanairra', 'Shava',
+                    'Silaqui', 'Theirastra', 'Thia', 'Vadania', 'Valanthe', 'Xanaphia']
+
+elf_family_names = ['Amakiir Gemflower', 'Amastacia Starflower',
+                    'Galanodel Moonwhisper', 'Holimion Diamonddew',
+                    'Ilphelkiir Gemblossom', 'Liadon Silverfrond',
+                    'Meliamne Oakenheel', 'Naïlo Nightbreeze',
+                    'Siannodel Moonbrook', 'Xiloscient Goldpetal']
+
+# Halfling names
+halfling_male_names = ['Alton', 'Ander', 'Cade', 'Corrin', 'Eldon', 'Errich',
+                       'Finnan', 'Garret', 'Lindal', 'Lyle', 'Merric', 'Milo',
+                       'Osborn', 'Perrin', 'Reed', 'Roscoe', 'Wellby']
+halfling_female_names = ['Andry', 'Bree', 'Callie', 'Cora', 'Euphemia', 'Jillian',
+                         'Kithri', 'Lavinia', 'Lidda', 'Merla', 'Nedda', 'Paela',
+                         'Portia', 'Seraphina', 'Shaena', 'Trym', 'Vani', 'Verna']
+
+halfling_family_names = ['Brushgather', 'Goodbarrel', 'Greenbottle',
+                         'High-hill', 'Hilltopple', 'Leagallow', 'Tealeaf',
+                         'Thorngage', 'Tosscobble', 'Underbough']
+
+# Human names (Calishite only but you can change the name list)
+
+human_male_names = ['Aseir', 'Bardeid', 'Haseid',
+                    'Khemed', 'Mehmen', 'Sudeiman', 'Zasheir']
+human_female_names = ['Atala', 'Ceidil', 'Hama', 'Jasmal', 'Meilil',
+                      'Seipora', 'Yasheira', 'Zasheida']
+human_family_names = ['Basha', 'Dumein', 'Jassan', 'Khalid',
+                      'Mostana', 'Pashar', 'Rein']
+
+if race == "Dwarf" and sex == "Male":
+    f_n = random.randint(0, (len(dwarf_male_names) - 1))
+    first_name = dwarf_male_names[f_n]
+    s_n = random.randint(0, (len(dwarf_clan_names) - 1))
+    second_name = dwarf_clan_names[s_n]
+
+elif race == "Dwarf" and sex == "Female":
+    f_n = random.randint(0, (len(dwarf_female_names) - 1))
+    first_name = dwarf_female_names[f_n]
+    s_n = random.randint(0, (len(dwarf_clan_names) - 1))
+    second_name = dwarf_clan_names[s_n]
+
+elif race == "Elf" and sex == "Male":
+    f_n = random.randint(0, (len(elf_male_names) - 1))
+    first_name = elf_male_names[f_n]
+    s_n = random.randint(0, (len(elf_family_names) - 1))
+    second_name = elf_family_names[s_n]
+
+elif race == "Elf" and sex == "Female":
+    f_n = random.randint(0, (len(elf_female_names) - 1))
+    first_name = elf_female_names[f_n]
+    s_n = random.randint(0, (len(elf_family_names) - 1))
+    second_name = elf_family_names[s_n]
+
+elif race == "Halfling" and sex == "Male":
+    f_n = random.randint(0, (len(halfling_male_names) - 1))
+    first_name = elf_male_names[f_n]
+    s_n = random.randint(0, (len(halfling_family_names) - 1))
+    second_name = halfling_family_names[s_n]
+
+elif race == "Halfling" and sex == "Female":
+    f_n = random.randint(0, (len(halfling_female_names) - 1))
+    first_name = halfling_female_names[f_n]
+    s_n = random.randint(0, (len(halfling_family_names) - 1))
+    second_name = halfling_family_names[s_n]
+
+# if you add another race do it here with the same pattern
+
+elif race == "Human" and sex == "Female":
+    f_n = random.randint(0, (len(human_female_names) - 1))
+    first_name = human_female_names[f_n]
+    s_n = random.randint(0, (len(human_family_names) - 1))
+    second_name = human_family_names[s_n]
+
+# if human male (last choice)
+
+else:
+    f_n = random.randint(0, (len(human_male_names) - 1))
+    first_name = human_male_names[f_n]
+    s_n = random.randint(0, (len(human_family_names) - 1))
+    second_name = human_family_names[s_n]
+
+print(" Name :", first_name, second_name)
+first_name = first_name.upper()
+second_name = second_name.upper()
+
+
+# race modifier note : race modifier do not take sub-races in accompt.
+# if you add sub-races change the modifier
+
+human = [1, 1, 1, 1, 1, 1]
+dwarf = [2, 0, 2, 0, 1, 0]
+elf = [0, 2, 0, 1, 1, 0]
+halfling = [0, 2, 1, 0, 0, 1]
+
+res_lt = []
+
+if race == "Human":
+    for x in range(0, len(stats)):
+        res_lt.append(stats[x] + human[x])
+    print(res_lt)
+
+if race == "Dwarf":
+    for x in range(0, len(stats)):
+        res_lt.append(stats[x] + dwarf[x])
+    print(res_lt)
+
+if race == "Elf":
+    for x in range(0, len(stats)):
+        res_lt.append(stats[x] + elf[x])
+    print(res_lt)
+
+if race == "Halfling":
+    for x in range(0, len(stats)):
+        res_lt.append(stats[x] + halfling[x])
+    print(res_lt)
+
+# Send all the data to our file
+
+fichier.write("Name : ")
+fichier.write(first_name)
+fichier.write(" ")
+fichier.write(second_name)
+fichier.write(" Race : ")
+fichier.write(race)
+fichier.write(" Sex : ")
+fichier.write(sex)
+fichier.write(" Alignment : ")
+fichier.write(str(alignment))
+fichier.write("\nheight : ")
+fichier.write(str(height // 12))
+fichier.write(" ft ")
+fichier.write(str(int(height % 12)))
+fichier.write(" inches. i.e : ")
+fichier.write(str(round(height_m, 2)))
+fichier.write(" m")
+fichier.write(" weight : ")
+fichier.write(str(weight))
+fichier.write(" lb. ie : ")
+fichier.write(str(weight * 0.45))
+fichier.write(" kg. ")
+fichier.write("\nSTATS : ")
+fichier.write("\nSTRENGTH : ")
+fichier.write(str(res_lt[0]))
+fichier.write("\nDEXTERITY : ")
+fichier.write(str(res_lt[1]))
+fichier.write("\nCONSTITUTION : ")
+fichier.write(str(res_lt[2]))
+fichier.write("\nINTELLIGENCE : ")
+fichier.write(str(res_lt[3]))
+fichier.write("\nWISDOM : ")
+fichier.write(str(res_lt[4]))
+fichier.write("\nCHARISMA : ")
+fichier.write(str(res_lt[5]))
+fichier.write("\n")
+
+
+# Create class
+
+
+def maximum_stat(res_lt):
+    maxi = res_lt[0]
+    for i in range(len(res_lt)):
+        if res_lt[i] >= maxi:
+            maxi = res_lt[i]
+    return maxi
+
+
+if maximum_stat(res_lt) == res_lt[0]:
+    fichier.write("WARRIOR, Hit Die : d10, Primary Ability : Strength or Dexterity, ")
+    fichier.write("\nSaving Throw Proficiencies : Strength & Constitution, ")
+    fichier.write("\nHit points : ")
+    fichier.write(str(10 + res_lt[2]))
+
+elif maximum_stat(res_lt) == res_lt[1]:
+    fichier.write("ROGUE, Hit Die : d8, Primary Ability : Dexterity ")
+    fichier.write("\nSaving Throw Proficiencies : Dexterity & Intelligence ")
+    fichier.write("\nHit points : ")
+    fichier.write(str(8 + res_lt[2]))
+
+elif maximum_stat(res_lt) == res_lt[2]:
+    fichier.write("WIZARD, Hit Die : d6, Primary Ability : Intelligence ")
+    fichier.write("\nSaving Throw Proficiencies : Intelligence & Wisdom ")
+    fichier.write("\nHit points : ")
+    fichier.write(str(6 + res_lt[2]))
+
+elif maximum_stat(res_lt) == res_lt[4]:
+    fichier.write("CLERIC, Hit Die : d8, Primary Ability : Wisdom ")
+    fichier.write("\nSaving Throw Proficiencies : Wisdom & Charisma ")
+    fichier.write("\nHit points : ")
+    fichier.write(str(8 + res_lt[2]))
+
+# if you want to add a new class do it here with same pattern :
+# the number after "res_lt" is the same as the stat value (0 = Strength etc)
+else:
+    fichier.write("you can choose your class")
+
+# End of the program : close the file
+fichier.close()
